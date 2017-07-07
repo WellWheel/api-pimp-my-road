@@ -34,7 +34,7 @@ class RegistrationController extends Controller
             $user->setEnabled(true);
 
             $userManager->updateUser($user);
-            return $this->generateToken($user, 201, $success);
+            return $this->generateToken($user, 201);
         }
 
         return new JsonResponse(array(
