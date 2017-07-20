@@ -10,15 +10,34 @@ $ sudo service apache2 reload
 $ cd api-pimp-my-road
 ```
 
+# Database
+
+On vagrant box, no password is required with root just type :
+
+`mysql`
+
+Then on command line of mysql just type
+
+```sh
+  mysql> create database YourDatabaseName;
+```
+# Install and start
+
+```
+make
+```
+
+**Indicate:**
+  - the name of your database;
+  - the user is 'root';
+  - No password for database or what ever you want;
+  - A mail for user.
+
 # Clear cache
 ```
 make cc
 ```
 
-# start
-```
-make
-```
 
 # Api User
 Créer un utilisateur dans la base de données User
