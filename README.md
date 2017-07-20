@@ -2,12 +2,10 @@
 ```sh
 $ git clone https://github.com/WellWheel/api-pimp-my-road.git
 $ sudo apt-get update
-$ sudo apt-get install php7.0-apcu -y
+$ sudo apt-get install php7.0-xml php7.0-apcu php7.0-mbstring php7.0-mysql -y
 $ sudo service php7.0-fpm restart
 $ sudo service apache2 reload
 $ cd api-pimp-my-road
-$ sudo composer selfupdate
-$ composer install
 ```
 
 # Clear cache
