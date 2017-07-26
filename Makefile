@@ -9,7 +9,7 @@ cc: var/cache var/logs
 	@echo " === Clear symfony === "
 
 var/cache:
-	mkdir $@ 
+	mkdir $@
 
 var/logs:
 	mkdir $@
@@ -18,9 +18,8 @@ database:
 	$(PHP) bin/console doctrine:schema:update --force
 
 composer:
-	sudo $(COMPOSER) selfupdate
 	composer install
 
-start: cc composer database 
+start: cc composer database
 
 .DEFAULT_GOAL := start
