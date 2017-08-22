@@ -21,10 +21,19 @@ Then on command line of mysql just type
 ```sh
   mysql> create database YourDatabaseName;
 ```
+
 # Install and start
 
+#### Install
+
 ```
-make
+make install HOST="YOUR_USER" DB_NAME="YOUR_DB_NAME" DB_USER="YOUR_USER" DB_PASSWD="YOUR_PASSWORD"
+```
+
+#### Reinstall
+
+```
+make reinstall HOST="YOUR_USER" DB_NAME="YOUR_DB_NAME" DB_USER="YOUR_USER" DB_PASSWD="YOUR_PASSWORD"
 ```
 
 **Indicate:**
