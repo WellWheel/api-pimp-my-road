@@ -1,14 +1,16 @@
 <?php
+
 namespace ApiBundle\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Journey
+ * Playlist
  *
- * @ORM\Table(name="journey")
- * @ORM\Entity(repositoryClass="ApiBundle\Repository\JourneyRepository")
+ * @ORM\Table(name="playlist")
+ * @ORM\Entity(repositoryClass="ApiBundle\Repository\PlaylistRepository")
  */
-class Journey
+class Playlist
 {
     /**
      * @var int
@@ -20,31 +22,25 @@ class Journey
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\User", inversedBy="journeys")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     */
-    private $user;
-
-    /**
      * @var string
      *
-     * @ORM\Column(name="token", type="string", length=255)
+     * @ORM\Column(name="token", type="string", length=255, unique=true)
      */
     private $token;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="start", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
      */
-    private $start;
+    private $title;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="end", type="string", length=255)
+     * @ORM\Column(name="affected", type="integer")
      */
-    private $end;
+    private $affected;
 
     /**
      * @ORM\OneToMany(targetEntity="ApiBundle\Entity\JourneyPlaylist", mappedBy="playlist")
@@ -60,60 +56,21 @@ class Journey
     {
         return $this->id;
     }
-    /**
-     * Set start
-     *
-     * @param string $start
-     *
-     * @return Journey
-     */
-    public function setStart($start)
-    {
-        $this->start = $start;
-        return $this;
-    }
-    /**
-     * Get start
-     *
-     * @return string
-     */
-    public function getStart()
-    {
-        return $this->start;
-    }
-    /**
-     * Set end
-     *
-     * @param string $end
-     *
-     * @return Journey
-     */
-    public function setEnd($end)
-    {
-        $this->end = $end;
-        return $this;
-    }
-    /**
-     * Get end
-     *
-     * @return string
-     */
-    public function getEnd()
-    {
-        return $this->end;
-    }
+
     /**
      * Set token
      *
      * @param string $token
      *
-     * @return Journey
+     * @return Playlist
      */
     public function setToken($token)
     {
         $this->token = $token;
+
         return $this;
     }
+
     /**
      * Get token
      *
@@ -125,27 +82,27 @@ class Journey
     }
 
     /**
-     * Set user
+     * Set title
      *
-     * @param \UserBundle\Entity\User $user
+     * @param string $title
      *
-     * @return Journey
+     * @return Playlist
      */
-    public function setUser(\UserBundle\Entity\User $user = null)
+    public function setTitle($title)
     {
-        $this->user = $user;
+        $this->title = $title;
 
         return $this;
     }
 
     /**
-     * Get user
+     * Get title
      *
-     * @return \UserBundle\Entity\User
+     * @return string
      */
-    public function getUser()
+    public function getTitle()
     {
-        return $this->user;
+        return $this->title;
     }
     /**
      * Constructor
@@ -156,11 +113,35 @@ class Journey
     }
 
     /**
+     * Set affected
+     *
+     * @param integer $affected
+     *
+     * @return Playlist
+     */
+    public function setAffected($affected)
+    {
+        $this->affected = $affected;
+
+        return $this;
+    }
+
+    /**
+     * Get affected
+     *
+     * @return integer
+     */
+    public function getAffected()
+    {
+        return $this->affected;
+    }
+
+    /**
      * Add journeyplaylist
      *
      * @param \ApiBundle\Entity\JourneyPlaylist $journeyplaylist
      *
-     * @return Journey
+     * @return Playlist
      */
     public function addJourneyplaylist(\ApiBundle\Entity\JourneyPlaylist $journeyplaylist)
     {

@@ -24,6 +24,7 @@ class RegistrationController extends Controller
         // Do a check for existing user with userManager->findByUsername
         $user = $em->getRepository("UserBundle:User")->findOneByUsername($data['username']);
 
+
         if(!$user) {
             $user = $userManager->createUser();
 

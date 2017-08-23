@@ -47,6 +47,11 @@ class Journey
     private $end;
 
     /**
+     * @ORM\OneToMany(targetEntity="ApiBundle\Entity\Application", mappedBy="playlist")
+     */
+    private $journeyplaylist;
+
+    /**
      * Get id
      *
      * @return int
@@ -117,5 +122,29 @@ class Journey
     public function getToken()
     {
         return $this->token;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \UserBundle\Entity\User $user
+     *
+     * @return Journey
+     */
+    public function setUser(\UserBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \UserBundle\Entity\User
+     */
+    public function getUser()
+    {
+        return $this->user;
     }
 }
