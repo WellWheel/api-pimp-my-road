@@ -49,4 +49,5 @@ make cc
 
 # Docuemntation
 
-[Snippets](docs/snippets.md)
+1. [Snippets](docs/snippets.md)
+2. [VirtualHost](docs/vhost.md)
