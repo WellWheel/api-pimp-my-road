@@ -18,7 +18,7 @@ class Weather
     }
     public function getMeteo($lat,$lon)
     {
-        $uri = '/data/2.5/forecast?lat='.$lat.'&lon='.$lon.'&lang=fr&APPID='.$this->apiKey;
+        $uri = '/data/2.5/forecast?lat='.$lat.'&lon='.$lon.'&lang=fr&units=metric&APPID='.$this->apiKey;
         try {
         $response = $this->weatherClient->get($uri);
         } catch (\Exception $e) {
