@@ -49,27 +49,68 @@ class JourneyController extends Controller
         $em->flush();
         return  $response;
     }
-
     /**
-     * @Route("/{iduser}")
+     * @Route("/show/{idJourney}")
      * @Method("GET")
      */
-    public function indexAction($iduser)
+    public function showAction(Request $request, $idJourney)
+    {
+        $params = array();
+        $content = $request->getContent();
+
+        if (!empty($content))
+        {
+            $params = json_decode($content,true); // 2nd param to get as array
+        }
+        $em = $this->getDoctrine()->getManager();
+
+        $journey = $em->getRepository("ApiBundle:Journey")->find($idJourney);
+
+        $direction = $this->get('app.direction');
+        $datas = $direction->getDirection($journey->getStart(),$journey->getEnd());
+        $response = new JsonResponse(array('datas' => $datas));
+
+        return  $response;
+    }
+
+    /**
+     * @Route("/list")
+     * @Method("GET")
+     */
+    public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $iduser = $this->getUser()->getId();
         $list = $em->getRepository('ApiBundle:Journey')->findBy(array(
             'user' => $iduser
         ));
-        $list_user = array();
+        $listjourney = array();
         foreach ($list as $key => $value) {
             $o = new \stdClass();
             $o->id = $value->getId();
             $o->iduser = $value->getUser()->getId();
             $o->start = $value->getStart();
             $o->end = $value->getEnd();
-            $list_user[$key] = $o;
+            $listjourney[$key] = $o;
         }
-        $response = new JsonResponse(array('list_user' => $list_user));
+        $response = new JsonResponse(array('list_journey' => $listjourney));
+        return $response;
+    }
+
+    /**
+     * @Route("/show/{idjourney}")
+     * @Method("GET")
+     */
+    public function indexAction($idjourney)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $journey = $em->getRepository('ApiBundle:Journey')->find($idjourney);
+        $o = new \stdClass();
+        $o->id = $journey->getId();
+        $o->iduser = $journey->getUser()->getId();
+        $o->start = $journey->getStart();
+        $o->end = $journey->getEnd();
+        $response = new JsonResponse(array('journey' => $o));
         return $response;
     }
 

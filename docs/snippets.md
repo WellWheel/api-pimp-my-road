@@ -114,7 +114,38 @@ var options = {
   "method": "GET",
   "hostname": "192.168.33.10",
   "port": null,
-  "path": "/app_dev.php/api/journey/1",
+  "path": "/app_dev.php/api/journey/list/$idUser",
+  "headers": {
+    "authorization": "Bearer <TOKEN>",
+    "cache-control": "no-cache",
+    "postman-token": "634a49e0-bf2c-8978-2b77-e1ca8137a870"
+  }
+};
+
+var req = http.request(options, function (res) {
+  var chunks = [];
+
+  res.on("data", function (chunk) {
+    chunks.push(chunk);
+  });
+
+  res.on("end", function () {
+    var body = Buffer.concat(chunks);
+    console.log(body.toString());
+  });
+});
+
+req.end();
+```
+Obtenir un voyage
+```
+var http = require("http");
+
+var options = {
+  "method": "GET",
+  "hostname": "192.168.33.10",
+  "port": null,
+  "path": "/app_dev.php/api/journey/show/$idJourney",
   "headers": {
     "authorization": "Bearer <TOKEN>",
     "cache-control": "no-cache",
@@ -145,7 +176,7 @@ var options = {
   "method": "DELETE",
   "hostname": "192.168.33.10",
   "port": null,
-  "path": "/app_dev.php/api/journey/delete/1",
+  "path": "/app_dev.php/api/journey/delete/$idJourney",
   "headers": {
     "authorization": "Bearer <TOKEN>",
     "cache-control": "no-cache",
@@ -176,7 +207,7 @@ var options = {
   "method": "POST",
   "hostname": "192.168.33.10",
   "port": null,
-  "path": "/app_dev.php/api/journey/update/2",
+  "path": "/app_dev.php/api/journey/update/$idJourney",
   "headers": {
     "authorization": "Bearer <TOKEN>",
     "content-type": "application/json",

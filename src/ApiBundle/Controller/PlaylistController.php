@@ -47,15 +47,6 @@ class PlaylistController extends Controller
           $success = true;
         }
 
-        // $idJourney = $params['idjourney'];
-        // if($idJourney) {
-        //   $journey = $em->getRepository("ApiBundle:Journey")->find($idJourney);
-        //   $affect = $this->affectPlaylistToJourney($playlist, $journey);
-        //   if($affect) {
-        //     $success = true;
-        //   }
-        // }
-
         return new JsonResponse(array('success' => $success));
     }
 
@@ -71,7 +62,7 @@ class PlaylistController extends Controller
         $content = $request->getContent();
         if (!empty($content))
         {
-            $params = json_decode($content,true); // 2nd param to get as array
+            $params = json_decode($content,true);
         }
 
         $idplaylist=$params['idplaylist'];
@@ -145,6 +136,23 @@ class PlaylistController extends Controller
             $list_playlist[$key] = $o;
         }
         $response = new JsonResponse(array('list_playlist' => $list_playlist));
+        return $response;
+    }
+
+    /**
+     * @Route("/delete/{id}")
+     * @Method("DELETE")
+     */
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $playlist = $em->getRepository('ApiBundle:Playlist')->findOneByToken($id);
+        $success = false;
+        if ($playlist){
+            $em->remove($playlist);
+            $em->flush();
+            $success = true;
+        }
+        $response = new JsonResponse(array('success' => $success));
         return $response;
     }
 
