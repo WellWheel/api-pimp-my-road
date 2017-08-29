@@ -37,7 +37,7 @@ class JourneyController extends Controller
 
         $direction = $this->get('app.direction');
         $datas = $direction->getDirection($origin,$destination);
-        $response = new JsonResponse(array('datas' => $datas));
+
 
         $advert = new Journey();
         $advert->setStart($origin);
@@ -47,6 +47,7 @@ class JourneyController extends Controller
 
         $em->persist($advert);
         $em->flush();
+        $response = new JsonResponse(array('datas' => $datas, 'idJourney' => $advert->getId()));
         return  $response;
     }
     /**
@@ -68,7 +69,20 @@ class JourneyController extends Controller
 
         $direction = $this->get('app.direction');
         $datas = $direction->getDirection($journey->getStart(),$journey->getEnd());
-        $response = new JsonResponse(array('datas' => $datas));
+        $info = array();
+        $info['start'] = $journey->getStart();
+        $info['end'] = $journey->getEnd();
+
+        $jp = $em->getRepository("ApiBundle:JourneyPlaylist")->findOneByJourney($idJourney);
+
+        if(!$jp) {
+            $playlist = "No Playlist";
+        } else {
+            $playlist = $jp->getPlaylist()->getToken();
+        }
+
+
+        $response = new JsonResponse(array('datas' => $datas, 'info' => $info, 'playlist' => $playlist ));
 
         return  $response;
     }
