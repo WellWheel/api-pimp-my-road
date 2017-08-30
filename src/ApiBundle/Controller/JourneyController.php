@@ -32,18 +32,14 @@ class JourneyController extends Controller
         $origin=$params['origin'];
         $destination=$params['destination'];
 
-        $iduser=$params['iduser'];
-        $user = $em->getRepository("UserBundle:User")->find($iduser);
-
         $direction = $this->get('app.direction');
         $datas = $direction->getDirection($origin,$destination);
-
 
         $advert = new Journey();
         $advert->setStart($origin);
         $advert->setEnd($destination);
         $advert->setToken("1111");
-        $advert->setUser($user);
+        $advert->setUser($this->getUser());
 
         $em->persist($advert);
         $em->flush();
